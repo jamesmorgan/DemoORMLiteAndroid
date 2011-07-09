@@ -70,6 +70,7 @@ public class DemoORMLiteActivity extends OrmLiteBaseListActivity<DatabaseHelper>
 
 	private static final int MENU_ADD_APP = Menu.FIRST;
 	private static final int MENU_DELETE_PERSON = Menu.FIRST + 1;
+	private static final int MENU_EDIT_PERSON = Menu.FIRST + 2;
 
 	@Override
 	public void onCreateContextMenu(final ContextMenu menu, final View v, final ContextMenuInfo menuInfo) {
@@ -79,6 +80,7 @@ public class DemoORMLiteActivity extends OrmLiteBaseListActivity<DatabaseHelper>
 			menu.setHeaderTitle(person.getId() + " | " + person.getName());
 			menu.add(Menu.NONE, MENU_ADD_APP, MENU_ADD_APP, "Add App");
 			menu.add(Menu.NONE, MENU_DELETE_PERSON, MENU_DELETE_PERSON, "Delete Person");
+			menu.add(Menu.NONE, MENU_EDIT_PERSON, MENU_EDIT_PERSON, "Edit Person");
 		}
 	}
 
@@ -88,12 +90,12 @@ public class DemoORMLiteActivity extends OrmLiteBaseListActivity<DatabaseHelper>
 		final int menuItemIndex = item.getItemId();
 		final Person person = this.persons.get(info.position);
 
+		final LayoutInflater factory = LayoutInflater.from(this);
+		final View textEntryView = factory.inflate(R.layout.alert_dialog_text_entry, null);
+		final EditText editText = (EditText) textEntryView.findViewById(R.id.edit_text_dialog);
+
 		switch (menuItemIndex) {
 			case MENU_ADD_APP:
-				final LayoutInflater factory = LayoutInflater.from(this);
-				final View textEntryView = factory.inflate(R.layout.alert_dialog_text_entry, null);
-				final EditText editText = (EditText) textEntryView.findViewById(R.id.edit_text_dialog);
-
 				new AlertDialog.Builder(this).setTitle("Add App")
 					.setView(textEntryView)
 					.setPositiveButton("Add", new DialogInterface.OnClickListener() {
@@ -119,6 +121,24 @@ public class DemoORMLiteActivity extends OrmLiteBaseListActivity<DatabaseHelper>
 				this.persons.remove(info.position);
 				this.demoRepository.deletePerson(person);
 				this.listAdapter.notifyDataSetChanged();
+				break;
+			case MENU_EDIT_PERSON:
+				// Set name for editing
+				editText.setText(person.getName());
+
+				new AlertDialog.Builder(this).setTitle("Edit Person")
+					.setView(textEntryView)
+					.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(final DialogInterface dialog, final int whichButton) {
+							person.setName(editText.getText()
+								.toString());
+							DemoORMLiteActivity.this.demoRepository.saveOrUpdatePerson(person);
+							reloadData();
+						}
+					})
+					.show();
+
 				break;
 			default:
 				break;

@@ -50,14 +50,20 @@ public class DemoRepository {
 
 	public void saveOrUpdateApp(final App app) {
 		try {
-			if (app.hasId()) {
-				// update
-				this.appDao.update(app);
+			this.appDao.createOrUpdate(app);
+		}
+		catch (final SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void deletePerson(final Person person) {
+		try {
+			final ForeignCollection<App> apps = person.getApps();
+			for (final App app : apps) {
+				this.appDao.delete(app);
 			}
-			else {
-				// create/save
-				this.appDao.create(app);
-			}
+			this.personDao.delete(person);
 		}
 		catch (final SQLException e) {
 			e.printStackTrace();
@@ -89,18 +95,4 @@ public class DemoRepository {
 		}
 		return this.appDao;
 	}
-
-	public void deletePerson(final Person person) {
-		try {
-			final ForeignCollection<App> apps = person.getApps();
-			for (final App app : apps) {
-				this.appDao.delete(app);
-			}
-			this.personDao.delete(person);
-		}
-		catch (final SQLException e) {
-			e.printStackTrace();
-		}
-	}
-
 }
