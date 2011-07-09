@@ -106,7 +106,7 @@ public class DemoORMLiteActivity extends OrmLiteBaseListActivity<DatabaseHelper>
 							app.setName(editText.getText()
 								.toString());
 							DemoORMLiteActivity.this.demoRepository.saveOrUpdateApp(app);
-							reloadData();
+							DemoORMLiteActivity.this.listAdapter.notifyDataSetChanged();
 						}
 					})
 					.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -134,21 +134,15 @@ public class DemoORMLiteActivity extends OrmLiteBaseListActivity<DatabaseHelper>
 							person.setName(editText.getText()
 								.toString());
 							DemoORMLiteActivity.this.demoRepository.saveOrUpdatePerson(person);
-							reloadData();
+							DemoORMLiteActivity.this.listAdapter.notifyDataSetChanged();
 						}
 					})
 					.show();
-
 				break;
 			default:
 				break;
 		}
 		return true;
-	}
-
-	private void reloadData() {
-		this.persons = this.demoRepository.getPersons();
-		this.listAdapter.notifyDataSetChanged();
 	}
 
 	private void createFakeEntries() {

@@ -17,8 +17,8 @@ public class PersonAdaptor extends ArrayAdapter<Person> {
 
 	private final String LOG_TAG = "PersonAdapter";
 
-	private final List<Person> persons;
-	private final Activity context;
+	private List<Person> persons = null;
+	private Activity context = null;
 
 	public PersonAdaptor(final Activity context, final int textViewResourceId, final List<Person> persons) {
 		super(context, textViewResourceId, persons);
