@@ -8,5 +8,16 @@
 		android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
 		android:text="@string/hello" />
+	<View
+		android:layout_width="fill_parent"
+		android:layout_height="2dip"
+		android:background="#FF00FF00" />
 
+	<ListView
+		android:clickable="true"
+		android:focusable="true"
+		android:id="@+id/android:list"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content">
+	</ListView>
 </LinearLayout>

@@ -3,5 +3,15 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="lib" path="L:/Java/ormlite/ormlite-core-4.23.jar" sourcepath="L:/Java/ormlite/ormlite-core-4.23-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/L:/Java/ormlite/ormlite-core-4.23-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="L:/Java/ormlite/ormlite-android-4.23.jar" sourcepath="L:/Java/ormlite/ormlite-android-4.23-sources.jar">
+		<attributes>
+			<attribute name="javadoc_location" value="jar:file:/L:/Java/ormlite/ormlite-android-4.23-javadoc.jar!/"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
